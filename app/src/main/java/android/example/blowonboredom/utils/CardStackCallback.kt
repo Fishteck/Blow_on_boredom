@@ -1,6 +1,6 @@
 package android.example.blowonboredom.utils
 
-import android.example.blowonboredom.ui.fragments.RandomActivity
+import android.example.blowonboredom.data.model.RandomActivity
 import androidx.recyclerview.widget.DiffUtil
 
 class CardStackCallback(

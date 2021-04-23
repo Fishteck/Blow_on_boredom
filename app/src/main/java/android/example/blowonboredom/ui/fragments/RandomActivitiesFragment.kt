@@ -3,23 +3,50 @@ package android.example.blowonboredom.ui.fragments
 import android.example.blowonboredom.utils.CardStackAdapter
 import android.example.blowonboredom.utils.CardStackCallback
 import android.example.blowonboredom.R
+import android.example.blowonboredom.data.model.RandomActivity
+import android.example.blowonboredom.ui.viewmodel.RandomActivityState
+import android.example.blowonboredom.ui.viewmodel.RandomActivityVM
 import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.yuyakaido.android.cardstackview.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities) {
     private lateinit var manager: CardStackLayoutManager
     private lateinit var adapter: CardStackAdapter
+    private val randomActivityVM : RandomActivityVM by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSwipe(view)
+        initObserver()
+        randomActivityVM.getRandom()
+    }
+
+    private fun initObserver() {
+        randomActivityVM.state.observe(viewLifecycleOwner, Observer { state ->
+            when(state) {
+                is RandomActivityState.OnSuccessState<*> -> {
+                    if (state.data is RandomActivity) {
+                        adapter.setItem(state.data)
+                    }
+                }
+                is RandomActivityState.OnErrorState<*> -> {
+                    if (state.messge is String) {
+                        Toast.makeText(requireContext(), state.messge, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
     }
 
     private fun initSwipe(view: View) {
@@ -32,7 +59,7 @@ class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities) {
             override fun onCardSwiped(direction: Direction) {
 
 
-                paginate()
+                randomActivityVM.getRandom()
 
 
             }
@@ -65,7 +92,6 @@ class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities) {
         manager.setSwipeableMethod(SwipeableMethod.Manual)
         manager.setOverlayInterpolator(LinearInterpolator())
         adapter = CardStackAdapter()
-        adapter.setItem(RandomActivity(5.0, "relax", "type"))
         cardStackView.layoutManager = manager
         cardStackView.adapter = adapter
         cardStackView.itemAnimator = DefaultItemAnimator()
@@ -73,12 +99,12 @@ class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities) {
 
     private fun paginate() {
 
-        val old: ArrayList<RandomActivity> = adapter.getItems()
+        /*val old: ArrayList<RandomActivity> = adapter.getItems()
         val baru: ArrayList<RandomActivity> = ArrayList(addList())
         val callback = CardStackCallback(old, baru)
         val hasil = DiffUtil.calculateDiff(callback)
         adapter.setItems(baru)
-        hasil.dispatchUpdatesTo(adapter)
+        hasil.dispatchUpdatesTo(adapter)*/
     }
     private fun addList(): ArrayList<RandomActivity> {
 

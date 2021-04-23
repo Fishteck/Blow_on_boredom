@@ -1,4 +1,4 @@
-package android.example.blowonboredom.ui.fragments
+package android.example.blowonboredom.data.model
 
 
 data class RandomActivity(
