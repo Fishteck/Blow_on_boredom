@@ -1,6 +1,7 @@
-package android.example.blowonboredom
+package android.example.blowonboredom.utils
 
-import android.example.blowonboredom.fragments.RandomActivity
+import android.example.blowonboredom.R
+import android.example.blowonboredom.ui.fragments.RandomActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

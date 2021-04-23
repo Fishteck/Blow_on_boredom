@@ -1,7 +1,7 @@
-package android.example.blowonboredom.fragments
+package android.example.blowonboredom.ui.fragments
 
-import android.example.blowonboredom.CardStackAdapter
-import android.example.blowonboredom.CardStackCallback
+import android.example.blowonboredom.utils.CardStackAdapter
+import android.example.blowonboredom.utils.CardStackCallback
 import android.example.blowonboredom.R
 import android.os.Bundle
 import android.view.View
