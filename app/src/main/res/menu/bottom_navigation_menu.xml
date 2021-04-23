@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/homeFragment" android:title="item1" android:icon="@drawable/ic_launcher_foreground"/>
+    <item android:id="@+id/favoriteActivitiesFragment" android:title="item2" android:icon="@drawable/ic_launcher_foreground"/>
+    <item android:id="@+id/randomActivitiesFragment" android:title="item3" android:icon="@drawable/ic_launcher_foreground"/>
+</menu>
