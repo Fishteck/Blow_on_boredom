@@ -1,4 +1,4 @@
-package android.example.blowonboredom.utils
+package android.example.blowonboredom.utils.cardstack
 
 import android.example.blowonboredom.data.model.RandomActivity
 import androidx.recyclerview.widget.DiffUtil
