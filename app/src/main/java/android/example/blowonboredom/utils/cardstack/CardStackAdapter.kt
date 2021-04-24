@@ -1,7 +1,7 @@
-package android.example.blowonboredom.utils
+package android.example.blowonboredom.utils.cardstack
 
 import android.example.blowonboredom.R
-import android.example.blowonboredom.ui.fragments.RandomActivity
+import android.example.blowonboredom.data.model.RandomActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,11 +41,6 @@ class CardStackAdapter() : RecyclerView.Adapter<CardStackAdapter.CardStackHolder
 
     override fun getItemCount(): Int = items.size
 
-    fun setItems(items:  ArrayList<RandomActivity>) {
-        this.items.clear()
-        this.items.addAll(items)
-        notifyDataSetChanged()
-    }
 
     fun setItem(items: RandomActivity) {
         this.items.clear()
@@ -53,7 +48,5 @@ class CardStackAdapter() : RecyclerView.Adapter<CardStackAdapter.CardStackHolder
         notifyDataSetChanged()
     }
 
-    fun getItems(): ArrayList<RandomActivity> {
-        return items
-    }
+
 }
