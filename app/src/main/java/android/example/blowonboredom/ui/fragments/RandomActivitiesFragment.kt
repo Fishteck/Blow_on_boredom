@@ -1,32 +1,34 @@
 package android.example.blowonboredom.ui.fragments
 
 import android.app.Dialog
-import android.example.blowonboredom.utils.cardstack.CardStackAdapter
+import android.example.blowonboredom.adapters.CardStackAdapter
 import android.example.blowonboredom.R
 import android.example.blowonboredom.data.model.RandomActivity
-import android.example.blowonboredom.ui.viewmodel.RandomActivityState
+import android.example.blowonboredom.ui.viewmodel.FavoriteActivitiesVM
+import android.example.blowonboredom.ui.viewmodel.states.RandomActivityState
 import android.example.blowonboredom.ui.viewmodel.RandomActivityVM
+import android.example.blowonboredom.ui.viewmodel.states.FavoriteActivitiesState
 import android.example.blowonboredom.utils.cardstack.CardStackListenerImpl
+import android.example.blowonboredom.utils.showSnackBar
 import android.example.blowonboredom.utils.showToast
 import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.yuyakaido.android.cardstackview.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
 
 @AndroidEntryPoint
-class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities) {
+class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities), CardStackAdapter.RandomActivitiesListener {
 
     private lateinit var manager: CardStackLayoutManager
     private lateinit var adapter: CardStackAdapter
     private var progressDialog: Dialog? = null
     private val randomActivityVM : RandomActivityVM by viewModels()
+    private val favoriteActivitiesVM : FavoriteActivitiesVM by viewModels()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,22 +38,36 @@ class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities) {
     }
 
     private fun initObserver() {
-        randomActivityVM.state.observe(viewLifecycleOwner, { state ->
+        randomActivityVM.randomActivitiesState.observe(viewLifecycleOwner, { state ->
             when(state) {
-                is RandomActivityState.OnSuccessState<*> -> {
+                is RandomActivityState.SuccessState<*> -> {
                     if (state.data is RandomActivity) {
                         adapter.setItem(state.data)
                         hideProgress()
                     }
                 }
-                is RandomActivityState.OnErrorState<*> -> {
+                is RandomActivityState.ErrorState<*> -> {
                     hideProgress()
-                    if (state.messge is String) {
-                        showToast(state.messge)
+                    if (state.message is String) {
+                        showToast(state.message)
                     }
                 }
                 is RandomActivityState.LoadingState -> {
                     showProgress()
+                }
+            }
+        })
+        favoriteActivitiesVM.favoriteActivitiesState.observe(viewLifecycleOwner, { state ->
+            when(state) {
+                is FavoriteActivitiesState.Complete<*> -> {
+                    if (state.message is String) {
+                        showSnackBar(state.message)
+                    }
+                }
+                is FavoriteActivitiesState.Error<*> -> {
+                    if (state.message is String) {
+                        showSnackBar(state.message)
+                    }
                 }
             }
         })
@@ -79,7 +95,7 @@ class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities) {
 
         setUpLayoutManager()
 
-        adapter = CardStackAdapter()
+        adapter = CardStackAdapter(this)
         cardStackView.layoutManager = manager
         cardStackView.adapter = adapter
         cardStackView.itemAnimator = DefaultItemAnimator()
@@ -97,6 +113,20 @@ class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities) {
         manager.setCanScrollVertical(false)
         manager.setSwipeableMethod(SwipeableMethod.Manual)
         manager.setOverlayInterpolator(LinearInterpolator())
+    }
+
+    override fun onActivityClick(item: RandomActivity, position: Int) {
+        if (item.isFavorite == true) {
+            item.isFavorite = false
+            favoriteActivitiesVM.deleteFromFavoriteActivities(id = item.key)
+            adapter.notifyDataSetChanged()
+        } else {
+            item.isFavorite = true
+            favoriteActivitiesVM.addToFavoriteActivities(item)
+            adapter.notifyDataSetChanged()
+        }
+
+
     }
 
 

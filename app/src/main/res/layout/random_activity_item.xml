@@ -8,13 +8,30 @@
     android:background="@color/dark_orange"
     android:layout_gravity="center"
     app:cardCornerRadius="@dimen/corner_radius">
+    <LinearLayout
+        android:id="@+id/random_activity_item_fav_icon_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_margin="10dp"
+        android:background="@drawable/favorite_button_background"
+        android:elevation="10dp">
 
+    <ImageView
+        android:id="@+id/random_activity_item_fav_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_favorite_unfiled_24_grey" />
+    </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:paddingStart="15dp"
-        android:paddingEnd="10dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="20dp"
         android:background="@color/dark_orange"
         >
 
@@ -37,7 +54,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="spread"
-            style="@style/random_activity_item_name_appearance" />
+            style="@style/random_activity_item_name_appearance"
+            />
 
         <TextView
             android:id="@+id/random_activity_item_activity_text"
@@ -48,7 +66,8 @@
             tools:text="Text"
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constrainedWidth="true"
-            style="@style/random_activity_item_activity_text_appearance" />
+            style="@style/random_activity_item_activity_text_appearance"
+            />
 
         <View
             android:id="@+id/random_activity_item_delimiter_activity"
@@ -141,7 +160,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/overlay_black"
-        android:visibility="gone">
+        >
 
         <ImageView
             android:layout_width="wrap_content"
@@ -155,7 +174,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/overlay_black"
-        android:visibility="gone">
+        >
 
         <ImageView
             android:layout_width="wrap_content"
