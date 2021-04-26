@@ -14,14 +14,16 @@ class CardStackAdapter() : RecyclerView.Adapter<CardStackAdapter.CardStackHolder
 
     inner class CardStackHolder(view:View) : RecyclerView.ViewHolder(view) {
 
-        private val text1 : TextView = view.findViewById(R.id.random_activity_item_first)
-        private val text2 : TextView = view.findViewById(R.id.random_activity_item_second)
-        private val text3 : TextView = view.findViewById(R.id.random_activity_item_third)
+        private val textActivity : TextView = view.findViewById(R.id.random_activity_item_activity_text)
+        private val textAccessibility : TextView = view.findViewById(R.id.random_activity_item_accessibility_text)
+        private val textType : TextView = view.findViewById(R.id.random_activity_item_type_text)
+        private val textParticipants : TextView = view.findViewById(R.id.random_activity_item_participants_text)
 
         fun bind(item : RandomActivity) {
-            text1.text = item.activity
-            text2.text = item.key
-            text3.text = item.accessibility.toString()
+            textActivity.text = item.activity
+            textAccessibility.text = item.accessibility.toString()
+            textType.text = item.type
+            textParticipants.text = item.participants.toString()
         }
     }
 

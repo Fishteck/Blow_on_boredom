@@ -3,13 +3,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="30dp"
     tools:context=".ui.fragments.HomeFragment">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home fragment"
-        android:gravity="center"/>
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:cardCornerRadius="@dimen/corner_radius"
+      android:elevation="10dp">
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@color/dark_orange"
+          >
+          <ImageView
+              android:id="@+id/fragment_home_image"
+              android:layout_width="wrap_content"
+              android:layout_height="500dp"
+              android:src="@drawable/bored_boy"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"/>
+          <TextView
+              android:id="@+id/fragment_home_bored_text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/bored_text"
+              app:layout_constraintTop_toBottomOf="@id/fragment_home_image"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintBottom_toTopOf="@id/fragment_home_interesting_text"
+             app:layout_constraintVertical_chainStyle="packed"
+              android:textSize="20sp"
+              android:textColor="@android:color/white"/>
+          <TextView
+              android:id="@+id/fragment_home_interesting_text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/find_interesting_things"
+              app:layout_constraintTop_toBottomOf="@id/fragment_home_bored_text"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              android:textSize="20sp"
+              android:textColor="@android:color/white"/>
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.cardview.widget.CardView>
 
 </FrameLayout>

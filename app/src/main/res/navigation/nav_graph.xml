@@ -8,12 +8,12 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="android.example.blowonboredom.ui.fragments.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/navigation_text_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/favoriteActivitiesFragment"
         android:name="android.example.blowonboredom.ui.fragments.FavoriteActivitiesFragment"
-        android:label="fragment_favorite_activities"
+        android:label="@string/navigation_text_favorite"
         tools:layout="@layout/fragment_favorite_activities" >
 
         <action
@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/randomActivitiesFragment"
         android:name="android.example.blowonboredom.ui.fragments.RandomActivitiesFragment"
-        android:label="fragment_random_activities"
+        android:label="@string/navigation_text_activities"
         tools:layout="@layout/fragment_random_activities" >
 
         <action
@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/detailActivityFragment"
         android:name="android.example.blowonboredom.ui.fragments.DetailActivityFragment"
-        android:label="fragment_detail_activity"
+        android:label="@string/navigation_text_detail_activity"
         tools:layout="@layout/fragment_detail_activity" >
         <action
             android:id="@+id/action_detailActivityFragment_to_randomActivitiesFragment"
