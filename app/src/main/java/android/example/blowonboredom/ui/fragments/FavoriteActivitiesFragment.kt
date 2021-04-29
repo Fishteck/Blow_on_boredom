@@ -39,7 +39,6 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
                     if (state.data is List<*> ) {
                         val list = state.data as ArrayList<RandomActivity>
                         adapter.setItems(list = list)
-                        showToast(adapter.itemCount.toString())
                     }
                 }
                 is FavoriteActivitiesState.Error<*> -> {
