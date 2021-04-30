@@ -5,6 +5,7 @@ import android.example.blowonboredom.adapters.FavoriteActivitiesAdapter
 import android.example.blowonboredom.data.model.RandomActivity
 import android.example.blowonboredom.ui.viewmodel.FavoriteActivitiesVM
 import android.example.blowonboredom.ui.viewmodel.states.FavoriteActivitiesState
+import android.example.blowonboredom.utils.showSnackBar
 import android.example.blowonboredom.utils.showToast
 import android.os.Bundle
 import android.view.View
@@ -20,7 +21,9 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
 
     private lateinit var adapter: FavoriteActivitiesAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var viewHolder : FavoriteActivitiesAdapter.FavoriteHolder
     private val favoriteActivitiesVM : FavoriteActivitiesVM by viewModels()
+    private lateinit var items : MutableList<RandomActivity>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,13 +43,19 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
                 is FavoriteActivitiesState.Success<*> -> {
                     if (state.data is List<*> ) {
                         val list = state.data as ArrayList<RandomActivity>
-                        adapter.setItems(list = list)
+                        adapter.setItems(list)
+                        items = list
                     }
                 }
                 is FavoriteActivitiesState.Error<*> -> {
                    if(state.message is String) {
                        showToast(state.message)
                    }
+                }
+                is FavoriteActivitiesState.Complete<*> -> {
+                    if(state.message is String) {
+                        showSnackBar(state.message)
+                    }
                 }
             }
 
@@ -62,8 +71,10 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
 
     }
 
-    override fun onActivityClick(id: String) {
-        showToast(id)
+    override fun onActivityClick(item: RandomActivity, position: Int) {
+        adapter.removeItem(item, position)
+        favoriteActivitiesVM.deleteFromFavoriteActivities(item.key)
+
     }
 
 
