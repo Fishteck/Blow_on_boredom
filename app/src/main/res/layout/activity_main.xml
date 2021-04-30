@@ -17,18 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
         android:background="@color/background_lite_orange"/>
-   <!-- <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
-        android:background="@color/background_lite_orange"
-        app:navGraph="@navigation/nav_graph" />-->
+
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_navigation_view"
@@ -39,25 +28,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:cnb_menuResource="@menu/bottom_navigation_menu"
-        android:layout_margin="20dp"
-        android:padding="10dp"
-        app:cnb_radius="8dp"
-        android:elevation="8dp"
+        android:layout_margin="@dimen/padding_N_margin_20"
+        android:padding="@dimen/padding_N_margin_10"
+        app:cnb_radius="@dimen/corner_radius_8"
+        android:elevation="@dimen/elevation_8"
         android:background="@drawable/round_corners"/>
 
-   <!--<com.google.android.material.bottomnavigation.BottomNavigationView
-       android:id="@+id/bottom_navigation_view"
-       android:layout_width="0dp"
-       android:layout_height="wrap_content"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
-       app:menu="@menu/bottom_navigation_menu"
-       app:itemTextColor="@drawable/bottom_nav_color"
-       app:itemIconTint="@drawable/bottom_nav_color"
-       android:background="@color/orange"
-       />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

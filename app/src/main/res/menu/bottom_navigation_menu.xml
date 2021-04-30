@@ -6,7 +6,8 @@
         android:title="@string/navigation_text_home"
         app:cnb_backgroundColor = "@color/dark_orange"
         app:cnb_textColor= "@color/white"
-        app:cnb_iconColor = "@color/white"/>
+        app:cnb_iconColor = "@color/white"
+        />
     <item
         android:id="@+id/favoriteActivitiesFragment"
         android:icon="@drawable/ic_favorite_24_filed_white"

@@ -13,4 +13,9 @@
     <string name="random_activity_item_activity_text_accessibility_name">Accessibility:</string>
     <string name="random_activity_item_type_name">Type:</string>
     <string name="random_activity_item_participants_name">Participants:</string>
+    <string name="bored_boy_image_description">bored boy image</string>
+    <string name="swipe_arrow_left_img_description">swipe_arrow_left_img</string>
+    <string name="swipe_arrow_right_img_description">swipe_arrow_right_img</string>
+    <string name="delete_action">Delete</string>
+    <string name="more_menu_img_description">more_menu_img</string>
 </resources>

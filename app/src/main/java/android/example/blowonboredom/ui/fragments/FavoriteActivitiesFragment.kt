@@ -15,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activities) {
+class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activities),
+    FavoriteActivitiesAdapter.FavoriteActivitiesListener {
 
     private lateinit var adapter: FavoriteActivitiesAdapter
     private lateinit var recyclerView: RecyclerView
@@ -23,14 +24,15 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*val btn = view.findViewById<Button>(R.id.btn_to_detail).setOnClickListener {
-            it.findNavController().navigate(R.id.action_favoriteActivitiesFragment_to_detailActivityFragment)
-        }*/
+
         initRecyclerView(view)
         initObservers()
         favoriteActivitiesVM.getAllFavoritesActivities()
 
+
     }
+
+
 
     private fun initObservers() {
         favoriteActivitiesVM.favoriteActivitiesState.observe(viewLifecycleOwner, { state ->
@@ -53,10 +55,16 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
 
     private fun initRecyclerView(view: View) {
         recyclerView = view.findViewById(R.id.fragment_favorite_activities_RV)
-        adapter = FavoriteActivitiesAdapter()
+        adapter = FavoriteActivitiesAdapter(this)
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
 
     }
+
+    override fun onActivityClick(id: String) {
+        showToast(id)
+    }
+
+
 }
