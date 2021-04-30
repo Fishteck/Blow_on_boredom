@@ -4,34 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp"
+    android:layout_margin="@dimen/padding_N_margin_30"
     android:background="@color/dark_orange"
     android:layout_gravity="center"
-    app:cardCornerRadius="@dimen/corner_radius">
+    app:cardCornerRadius="@dimen/corner_radius_15">
     <LinearLayout
         android:id="@+id/random_activity_item_fav_icon_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/padding_N_margin_10"
         android:background="@drawable/favorite_button_background"
-        android:elevation="10dp">
+        android:elevation="@dimen/elevation_8">
 
     <ImageView
         android:id="@+id/random_activity_item_fav_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/padding_N_margin_10"
         android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_favorite_unfiled_24_grey" />
+        android:src="@drawable/ic_favorite_unfilled_24_grey" />
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:paddingTop="20dp"
+        android:paddingStart="@dimen/padding_N_margin_12"
+        android:paddingEnd="@dimen/padding_N_margin_12"
+        android:paddingTop="@dimen/padding_N_margin_20"
         android:background="@color/dark_orange"
         >
 
@@ -166,7 +166,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:contentDescription="@string/swipe_arrow_left_img_description" />
     </FrameLayout>
 
     <FrameLayout
@@ -180,7 +181,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_arrow_swipe_right_black_24" />
+            android:src="@drawable/ic_arrow_swipe_right_black_24"
+            android:contentDescription="@string/swipe_arrow_right_img_description" />
 
     </FrameLayout>
 

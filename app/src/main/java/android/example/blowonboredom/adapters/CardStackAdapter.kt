@@ -32,7 +32,7 @@ class CardStackAdapter( private val listener : RandomActivitiesListener) : Recyc
             if (item.isFavorite == true) {
                 favIcon.setImageResource(R.drawable.ic_favorite_filed_24_red)
             } else {
-                favIcon.setImageResource(R.drawable.ic_favorite_unfiled_24_grey)
+                favIcon.setImageResource(R.drawable.ic_favorite_unfilled_24_grey)
             }
         }
     }
