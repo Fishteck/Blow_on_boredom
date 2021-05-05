@@ -9,5 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_lite_orange">#DAC8AE</color>
     <color name="orange">#FF9800</color>
-    <color name="dark_orange">#D16E04</color>
+    <color name="dark_orange">#DC7D17</color>
+    <color name="delete_background">#B9EA7E76</color>
+    <color name="lite_grey">#8A8989</color>
+    <color name="dark_grey">#656565</color>
+
 </resources>
