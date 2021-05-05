@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +22,6 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
 
     private lateinit var adapter: FavoriteActivitiesAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewHolder : FavoriteActivitiesAdapter.FavoriteHolder
     private val favoriteActivitiesVM : FavoriteActivitiesVM by viewModels()
     private lateinit var items : MutableList<RandomActivity>
 
@@ -31,10 +31,29 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
         initRecyclerView(view)
         initObservers()
         favoriteActivitiesVM.getAllFavoritesActivities()
-
+        initSwipeToDelete()
 
     }
 
+    private fun initSwipeToDelete() {
+        val itemTouchHelperCallback = object  : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+              return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
+                adapter.removeItem(viewHolder.adapterPosition)
+                showSnackBar("Delete activity?", "Undo", {
+                    adapter.undoRemoveItem()
+                }, {
+                    adapter.getRemovedItem()?.key?.let { favoriteActivitiesVM.deleteFromFavoriteActivities(it) }
+                })
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
 
 
     private fun initObservers() {
@@ -71,9 +90,9 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
 
     }
 
-    override fun onActivityClick(item: RandomActivity, position: Int) {
-        adapter.removeItem(item, position)
-        favoriteActivitiesVM.deleteFromFavoriteActivities(item.key)
+    override fun onActivityClick(position: Int) {
+        adapter.removeItem( position)
+        //favoriteActivitiesVM.deleteFromFavoriteActivities(item.key)
 
     }
 
