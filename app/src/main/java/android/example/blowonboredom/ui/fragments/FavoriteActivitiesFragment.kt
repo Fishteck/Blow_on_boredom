@@ -1,5 +1,6 @@
 package android.example.blowonboredom.ui.fragments
 
+import android.annotation.SuppressLint
 import android.example.blowonboredom.R
 import android.example.blowonboredom.adapters.FavoriteActivitiesAdapter
 import android.example.blowonboredom.data.model.RandomActivity
@@ -7,8 +8,13 @@ import android.example.blowonboredom.ui.viewmodel.FavoriteActivitiesVM
 import android.example.blowonboredom.ui.viewmodel.states.FavoriteActivitiesState
 import android.example.blowonboredom.utils.showSnackBar
 import android.example.blowonboredom.utils.showToast
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -23,6 +29,8 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
     private lateinit var recyclerView: RecyclerView
     private val favoriteActivitiesVM: FavoriteActivitiesVM by viewModels()
     private lateinit var items: MutableList<RandomActivity>
+    private lateinit var deleteIcon : Drawable
+    private var swipeBackground : ColorDrawable = ColorDrawable(Color.parseColor("#B9EA7E76"))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,6 +38,7 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
         initRecyclerView(view)
         initObservers()
         favoriteActivitiesVM.getAllFavoritesActivities()
+        deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete_24_grey)!!
         initSwipeToDelete()
 
     }
@@ -48,6 +57,42 @@ class FavoriteActivitiesFragment : Fragment(R.layout.fragment_favorite_activitie
                         { adapter.undoRemoveItem() }, {
                     adapter.getRemovedItem()?.key?.let { favoriteActivitiesVM.deleteFromFavoriteActivities(it) }
                 })
+
+            }
+
+            override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+                val itemView = viewHolder.itemView
+                val marginIcon = (itemView.height - deleteIcon.intrinsicHeight) / 2
+                if ( dX > 0) {
+                    swipeBackground.setBounds(
+                            itemView.left,
+                            itemView.top,
+                            dX.toInt(),
+                            itemView.bottom
+                    )
+                    deleteIcon.setBounds(
+                            itemView.left + marginIcon,
+                            itemView.top + marginIcon,
+                            itemView.left + marginIcon + deleteIcon.intrinsicWidth,
+                            itemView.bottom - marginIcon
+                    )
+                } else {
+                    swipeBackground.setBounds(
+                            itemView.right + dX.toInt(),
+                            itemView.top,
+                            itemView.right,
+                            itemView.bottom
+                    )
+                    deleteIcon.setBounds(
+                            itemView.right - marginIcon - deleteIcon.intrinsicWidth,
+                            itemView.top + marginIcon,
+                            itemView.right - marginIcon,
+                            itemView.bottom - marginIcon
+                    )
+                }
+                swipeBackground.draw(c)
+                deleteIcon.draw(c)
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
         }
 
