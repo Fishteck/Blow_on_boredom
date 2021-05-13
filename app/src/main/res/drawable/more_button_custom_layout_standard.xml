@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Your background color goes first -->
+    <item
+        android:id="@android:id/background"
+        android:drawable="@drawable/favorite_button_background" />
+
+    <!-- Your button icon image -->
+    <item
+        android:id="@android:id/icon"
+        android:drawable="@drawable/ic_more_vert_24_grey"
+        />
+</layer-list>

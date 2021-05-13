@@ -5,9 +5,9 @@ import android.example.blowonboredom.adapters.CardStackAdapter
 import android.example.blowonboredom.R
 import android.example.blowonboredom.data.model.RandomActivity
 import android.example.blowonboredom.ui.viewmodel.FavoriteActivitiesVM
-import android.example.blowonboredom.ui.viewmodel.states.RandomActivityState
 import android.example.blowonboredom.ui.viewmodel.RandomActivityVM
-import android.example.blowonboredom.ui.viewmodel.states.FavoriteActivitiesState
+import android.example.blowonboredom.ui.viewmodel.states.CompletableStates
+import android.example.blowonboredom.ui.viewmodel.states.SuccessStates
 import android.example.blowonboredom.utils.cardstack.CardStackListenerImpl
 import android.example.blowonboredom.utils.showSnackBar
 import android.example.blowonboredom.utils.showToast
@@ -39,35 +39,28 @@ class RandomActivitiesFragment : Fragment(R.layout.fragment_random_activities), 
 
     private fun initObserver() {
         randomActivityVM.randomActivitiesState.observe(viewLifecycleOwner, { state ->
-            when(state) {
-                is RandomActivityState.SuccessState<*> -> {
-                    if (state.data is RandomActivity) {
-                        adapter.setItem(state.data)
-                        hideProgress()
-                    }
-                }
-                is RandomActivityState.ErrorState<*> -> {
+
+            when (state) {
+                is SuccessStates.Success -> {
+                    state.data?.let { adapter.setItem(it) }
                     hideProgress()
-                    if (state.message is String) {
-                        showToast(state.message)
-                    }
                 }
-                is RandomActivityState.LoadingState -> {
+                is SuccessStates.Error -> {
+                    showToast(state.message)
+                }
+                is SuccessStates.Loading -> {
                     showProgress()
                 }
             }
+
         })
-        favoriteActivitiesVM.favoriteActivitiesState.observe(viewLifecycleOwner, { state ->
-            when(state) {
-                is FavoriteActivitiesState.Complete<*> -> {
-                    if (state.message is String) {
-                        showSnackBar(state.message)
-                    }
+        favoriteActivitiesVM.favoriteCompletableStates.observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is CompletableStates.Complete -> {
+                    state.message?.let { showSnackBar(it) }
                 }
-                is FavoriteActivitiesState.Error<*> -> {
-                    if (state.message is String) {
-                        showSnackBar(state.message)
-                    }
+                is CompletableStates.Error -> {
+                    showToast(state.message)
                 }
             }
         })

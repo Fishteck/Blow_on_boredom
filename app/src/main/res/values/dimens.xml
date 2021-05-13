@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="corner_radius_15">15dp</dimen>
+    <dimen name="corner_radius_8">8dp</dimen>
+    <dimen name="elevation_8">8dp</dimen>
+    <dimen name="padding_N_margin_15">15dp</dimen>
+    <dimen name="padding_N_margin_20">20dp</dimen>
+    <dimen name="padding_N_margin_10">10dp</dimen>
+    <dimen name="padding_N_margin_12">12dp</dimen>
+    <dimen name="padding_N_margin_30">30dp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="delimiter_height_2">2dp</dimen>
+
+
+</resources>
